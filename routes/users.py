@@ -4,8 +4,8 @@ from typing import Annotated
 from fastapi import APIRouter, Depends, HTTPException
 
 from bd import get_db
-from objects import Db, User
 from routes.auth import get_current_user
+from schemas.db import Db, User
 
 router = APIRouter(prefix="/users", tags=["users"])
 

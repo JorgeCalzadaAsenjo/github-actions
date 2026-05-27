@@ -4,15 +4,13 @@ from http import HTTPStatus
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
-from routes.auth import router as autorize_router
-from routes.items import router as item_router
-from routes.users import router as user_router
+from routes import auth_router, item_router, user_router
 
 app = FastAPI()
 
+app.include_router(auth_router)
 app.include_router(item_router)
 app.include_router(user_router)
-app.include_router(autorize_router)
 
 @app.get("/", status_code=HTTPStatus.OK, tags=["init"])
 def get_init():

@@ -1,4 +1,4 @@
-from objects import Db, Item, User
+from schemas.db import Db, Item, User
 
 users: list[User] = [
     User(id = 0, name = "Admin", password = "01234"),

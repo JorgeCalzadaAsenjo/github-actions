@@ -7,7 +7,7 @@ from fastapi import APIRouter, Cookie, Depends, HTTPException, Response
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 
 from bd import get_db
-from objects import Db
+from schemas.db import Db
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 
