@@ -20,3 +20,6 @@ items: list[Item] = [
 ]
 
 db = Db(users = users, items = items)
+
+def get_db():
+    return db

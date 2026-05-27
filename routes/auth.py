@@ -6,8 +6,8 @@ import jwt
 from fastapi import APIRouter, Cookie, Depends, HTTPException, Response
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 
-from bd import get_users
-from objects import User
+from bd import get_db
+from objects import Db
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 
@@ -39,10 +39,10 @@ def set_access(response: Response, data: dict, expires_delta: timedelta = timede
     response.headers["WWW-Authenticate"] = token
 
 @router.post("/login", status_code=HTTPStatus.ACCEPTED)
-def login(form_data: Annotated[OAuth2PasswordRequestForm, Depends()], response: Response, users: Annotated[list[User], Depends(get_users)]):
+def login(form_data: Annotated[OAuth2PasswordRequestForm, Depends()], response: Response, db: Annotated[Db, Depends(get_db)]):
     data_token = None
 
-    for u in users:
+    for u in db.users:
         if u.name.lower() == form_data.username.lower() and u.password == form_data.password:
             data_token = {"id": u.id, "name": u.name}
 
