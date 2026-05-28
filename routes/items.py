@@ -25,7 +25,7 @@ def search_item(commons: Annotated[dict, Depends(common_parameters)], db: Annota
     return items[commons.get("skip"): commons.get("skip", 0) + commons.get("limit")]
 
 @router.get("/{item_id}", status_code=HTTPStatus.OK, response_model=Item)
-def get_item(item_id: Annotated[int, Path(description="Id del item", ge=1, le=1000)], db: Annotated[Db, Depends(get_db)]):
+def get_item(item_id: Annotated[int, Path(description="Id del item")], db: Annotated[Db, Depends(get_db)]):
     for i in db.items:
         if i.id == item_id:
             return i

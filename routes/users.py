@@ -9,6 +9,12 @@ from schemas.db import Db, User
 
 router = APIRouter(prefix="/users", tags=["users"])
 
+@router.get("/")
+def get_users(user: Annotated[dict, Depends(get_current_user)], db: Annotated[Db, Depends(get_db)]):
+    if user.get("id") == 0:
+        return db.users
+    raise HTTPException(HTTPStatus.UNAUTHORIZED, detail="Unauthorized user")
+
 @router.get("/me")
 def get_me(username: Annotated[dict, Depends(get_current_user)]):
     return {**username}
@@ -16,12 +22,6 @@ def get_me(username: Annotated[dict, Depends(get_current_user)]):
 @router.get("/me/items")
 def get_me_items(user: Annotated[dict, Depends(get_current_user)]):
     return {"user": user.get("name"), "items": []}
-
-@router.get("/users")
-def get_users(user: Annotated[dict, Depends(get_current_user)], db: Annotated[Db, Depends(get_db)]):
-    if user.get("id") == 0:
-        return db.users
-    raise HTTPException(HTTPStatus.UNAUTHORIZED, detail="Unauthorized user")
 
 @router.get("/admins")
 def get_admins(user: Annotated[dict, Depends(get_current_user)], db: Annotated[Db, Depends(get_db)]):
