@@ -35,8 +35,8 @@ def set_cookie(response: Response, data: dict, expires_delta: timedelta = timede
 
 def set_access(response: Response, data: dict, expires_delta: timedelta = timedelta(minutes=15)):
     token = create_token(data, "Access", expires_delta)
-    response.headers["Authorization"] = token
-    response.headers["WWW-Authenticate"] = token
+    # response.headers["Authorization"] = token
+    # response.headers["WWW-Authenticate"] = token
 
 @router.post("/login", status_code=HTTPStatus.ACCEPTED)
 def login(form_data: Annotated[OAuth2PasswordRequestForm, Depends()], response: Response, db: Annotated[Db, Depends(get_db)]):
@@ -50,7 +50,7 @@ def login(form_data: Annotated[OAuth2PasswordRequestForm, Depends()], response: 
         raise HTTPException(status_code=HTTPStatus.UNAUTHORIZED, detail="Unauthorized user")
 
     set_cookie(response, data_token)
-    set_access(response, data_token)
+    # set_access(response, data_token)
 
     #return {"ok": True, "message": "Access accept"}
 
@@ -75,7 +75,7 @@ def refresh(response: Response, session_token: Annotated[str | None, Cookie()] =
         data_token = {"id": data.get("id"), "name": data.get("name")}
 
         set_cookie(response, data_token)
-        set_access(response, data_token)
+        # set_access(response, data_token)
 
         # return {"ok": True, "message": "Access refresh"}
         return {"access_token": create_token(data_token, "Access"), "token_type": "bearer"}

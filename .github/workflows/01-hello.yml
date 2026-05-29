@@ -16,3 +16,12 @@ jobs:
       
       - name: Ver archivos disponibles
         run: ls -la
+      
+      - name: Version Python
+        run: python --version
+  
+  repo-files:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Descargar codigo del repo
+        uses: actions/checkout@v6
