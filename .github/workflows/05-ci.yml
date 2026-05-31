@@ -22,10 +22,16 @@ jobs:
       - name: Instalar dependencias
         run: uv sync
       
+      - name: Mostrar version Python
+        run: |
+          echo "Python version $PYTHON_VERSION"
+        env:
+          PYTHON_VERSION: ${{ steps.setup-uv.outputs.python_version }}
+      
       - name: Mostrar carpeta actual y listar directorio
         run: pwd && ls -la
       
-      - name: Test with python ${{ steps.setup-uv.outputs.python_version }}
+      - name: Test with pytest
         run: uv run --frozen pytest
         env:
           PYTHONPATH: .
