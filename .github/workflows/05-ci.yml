@@ -23,10 +23,7 @@ jobs:
         run: uv sync
       
       - name: Mostrar version Python
-        run: |
-          echo "Python version $PYTHON_VERSION"
-        env:
-          PYTHON_VERSION: ${{ steps.setup-uv.outputs.python_version }}
+        run: uv run python --version
       
       - name: Mostrar carpeta actual y listar directorio
         run: pwd && ls -la
