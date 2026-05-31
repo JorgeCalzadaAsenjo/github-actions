@@ -22,5 +22,8 @@ jobs:
       - name: Instalar dependencias
         run: uv sync
       
+      - name: Mostrar carpeta actual y listar directorio
+        run: pwd && ls -la
+      
       - name: Test with python ${{ steps.setup-uv.outputs.python_version }}
         run: uv run --frozen pytest
