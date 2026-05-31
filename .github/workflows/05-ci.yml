@@ -32,3 +32,9 @@ jobs:
         run: uv run --frozen pytest
         env:
           PYTHONPATH: .
+      
+      - name: Formateador/linter with Ruff
+        run: uv run ruff check .
+
+      - name: Verificador de tipos with Pyrefly
+        run: uv run pyrefly check
