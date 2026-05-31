@@ -17,3 +17,6 @@ dev = [
     "pytest==9.0.3",
     "uvicorn==0.48.0",
 ]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
