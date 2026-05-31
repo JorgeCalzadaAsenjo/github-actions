@@ -27,3 +27,5 @@ jobs:
       
       - name: Test with python ${{ steps.setup-uv.outputs.python_version }}
         run: uv run --frozen pytest
+        env:
+          PYTHONPATH: .
